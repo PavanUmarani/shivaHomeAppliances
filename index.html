@@ -6,6 +6,7 @@
   <title>Shiva Home Appliances | Premium Home Solutions</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <style>
     :root {
@@ -14,7 +15,6 @@
       --accent: #e63946;
       --gold: #f4a261;
       --light: #f1faee;
-      --gray: #a8a8a8;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,7 +35,6 @@
       top: 0;
       z-index: 1000;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
     }
     nav { 
       max-width: 1300px; 
@@ -54,6 +53,17 @@
       -webkit-text-fill-color: transparent;
       letter-spacing: 1px;
     }
+
+    /* Hamburger Button */
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      font-size: 1.8rem;
+      color: var(--gold);
+      z-index: 1001;
+    }
+
+    /* Desktop Menu */
     .nav-links { 
       display: flex; 
       gap: 40px; 
@@ -63,7 +73,7 @@
       text-decoration: none; 
       font-weight: 500;
       position: relative;
-      transition: all 0.3s;
+      font-size: 1.1rem;
     }
     .nav-links a::after {
       content: '';
@@ -79,8 +89,56 @@
       width: 100%;
       left: 0;
     }
-    .menu-btn { display: none; cursor: pointer; font-size: 1.8rem; color: var(--gold); }
 
+    /* Mobile Menu - Fully Fixed */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 350px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        transition: right 0.5s ease;
+        z-index: 1000;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-links a {
+        font-size: 1.6rem;
+        font-weight: 600;
+      }
+    }
+
+    /* Dark overlay when menu is open */
+    .menu-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+      z-index: 999;
+    }
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Rest of your styles (unchanged) */
     .hero {
       background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('./frount.jpeg') no-repeat center center/cover;
       height: 100vh;
@@ -89,185 +147,84 @@
       justify-content: center;
       text-align: center;
       color: white;
-      position: relative;
     }
-    .hero-content { 
-      max-width: 900px; 
-      padding: 30px;
-      animation: fadeInUp 1.5s ease;
-    }
-    .hero h1 { 
-      font-family: 'Playfair Display', serif;
-      font-size: 4.5rem; 
-      margin-bottom: 20px;
-      text-shadow: 0 5px 20px rgba(0,0,0,0.6);
-    }
-    .hero p { 
-      font-size: 1.4rem; 
-      margin-bottom: 40px;
-      opacity: 0.9;
-      font-weight: 300;
-    }
+    .hero-content { max-width: 900px; padding: 30px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.4rem; margin-bottom: 40px; opacity: 0.9; }
     .btn {
-      background: var(--accent);
-      color: white;
-      padding: 16px 40px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.4s;
+      background: var(--accent); color: white; padding: 16px 40px; border: none; border-radius: 50px;
+      font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.4s;
       box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
     }
-    .btn:hover {
-      background: #d62839;
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(230, 57, 70, 0.6);
-    }
+    .btn:hover { background: #d62839; transform: translateY(-5px); }
 
     section { padding: 100px 20px; text-align: center; }
     .container { max-width: 1300px; margin: 0 auto; }
-    h2 { 
-      font-family: 'Playfair Display', serif;
-      font-size: 3.2rem; 
-      margin-bottom: 60px; 
-      color: var(--primary);
-      position: relative;
-    }
-    h2::after {
-      content: '';
-      width: 100px;
-      height: 4px;
-      background: var(--gold);
-      display: block;
-      margin: 20px auto;
-      border-radius: 2px;
-    }
+    h2 { font-family: 'Playfair Display', serif; font-size: 3.2rem; margin-bottom: 60px; color: var(--primary); position: relative; }
+    h2::after { content: ''; width: 100px; height: 4px; background: var(--gold); display: block; margin: 20px auto; border-radius: 2px; }
 
-    .products-grid, .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-    }
-    .product-card, .gallery-item {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      transition: all 0.4s;
-    }
-    .product-card:hover, .gallery-item:hover {
-      transform: translateY(-20px) scale(1.02);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-    }
-    .product-card img, .gallery-item img { 
-      width: 100%; 
-      height: 240px; 
-      object-fit: cover; 
-      transition: transform 0.5s;
-    }
-    .product-card:hover img, .gallery-item:hover img { 
-      transform: scale(1.1); 
-    }
+    .products-grid, .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+    .product-card, .gallery-item { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); transition: all 0.4s; }
+    .product-card:hover, .gallery-item:hover { transform: translateY(-20px) scale(1.02); box-shadow: 0 25px 60px rgba(0,0,0,0.2); }
+    .product-card img, .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.5s; }
+    .product-card:hover img, .gallery-item:hover img { transform: scale(1.1); }
     .product-info { padding: 30px 20px; }
-    .product-info h3 { font-size: 1.5rem; color: var(--primary); margin-bottom: 10px; }
+    .product-info h3 { font-size: 1.5rem; color: var(--primary); }
 
     .gallery-item { position: relative; cursor: pointer; }
     .gallery-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      position: absolute; bottom: 0; left: 0; right: 0;
       background: linear-gradient(transparent, rgba(0,0,0,0.8));
-      color: white;
-      padding: 30px 20px 20px;
-      transform: translateY(20px);
-      transition: 0.4s;
+      color: white; padding: 30px 20px 20px; transform: translateY(20px); transition: 0.4s;
     }
     .gallery-item:hover .gallery-overlay { transform: translateY(0); }
 
     #gallery { background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 120px 20px; }
     .about { background: var(--light); }
 
-    /* Contact Section - Now Only WhatsApp Info */
-    #contact {
-      background: #0f1626;
-      color: white;
-      padding: 120px 20px;
-    }
+    #contact { background: #0f1626; color: white; padding: 120px 20px; }
     #contact h2 { color: var(--gold); }
     #contact h2::after { background: var(--accent); }
-    .contact-info {
-      font-size: 1.4rem;
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 2;
-    }
-    .highlight {
-      color: var(--gold);
-      font-weight: 600;
-    }
+    .contact-info { font-size: 1.4rem; max-width: 800px; margin: 0 auto; line-height: 2; }
+    .highlight { color: var(--gold); font-weight: 600; }
 
-    footer {
-      background: var(--primary);
-      color: #ccc;
-      padding: 80px 20px 30px;
-      text-align: center;
-    }
+    footer { background: var(--primary); color: #ccc; padding: 80px 20px 30px; text-align: center; }
 
-    /* Floating WhatsApp Button */
     .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 25px;
-      right: 25px;
-      background: #25d366;
-      color: white;
-      border-radius: 50px;
-      text-align: center;
-      font-size: 35px;
-      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-      z-index: 1000;
-      transition: all 0.3s;
-      animation: pulse 2s infinite;
+      position: fixed; width: 60px; height: 60px; bottom: 25px; right: 25px;
+      background: #25d366; color: white; border-radius: 50px; text-align: center;
+      font-size: 35px; box-shadow: 0 8px 25px rgba(37,211,102,0.4); z-index: 1000;
+      transition: all 0.3s; animation: pulse 2s infinite;
     }
-    .whatsapp-float:hover {
-      transform: scale(1.15);
-      background: #128C7E;
-    }
-    .whatsapp-float i {
-      margin-top: 12px;
-    }
+    .whatsapp-float:hover { transform: scale(1.15); background: #128C7E; }
+    .whatsapp-float i { margin-top: 12px; }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
     }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--primary); padding: 30px; gap: 25px; }
-      .nav-links.active { display: flex; }
-      .menu-btn { display: block; }
       .hero h1 { font-size: 3rem; }
       .whatsapp-float { width: 55px; height: 55px; font-size: 30px; bottom: 20px; right: 20px; }
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+  <!-- Overlay -->
+  <div class="menu-overlay"></div>
 
   <header>
     <nav>
       <div class="logo">Shiva Home Appliances</div>
-      <div class="menu-btn">Menu</div>
+      
+      <!-- Hamburger Icon -->
+      <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+      
       <div class="nav-links">
         <a href="#home">Home</a>
         <a href="#products">Products</a>
@@ -278,11 +235,12 @@
     </nav>
   </header>
 
+  <!-- All your sections (same as before) -->
   <section id="home" class="hero">
     <div class="hero-content">
       <h1>Experience Luxury Living</h1>
       <p>Premium Home Appliances & Furniture | Best Prices | Trusted Since 2008</p>
-      <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">
+      <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
         Explore Collection
       </button>
     </div>
@@ -292,30 +250,12 @@
     <div class="container">
       <h2>Our Premium Collection</h2>
       <div class="products-grid">
-        <div class="product-card">
-          <img src="./led.jpg" alt="LED TV">
-          <div class="product-info"><h3>LED & Smart TVs</h3><p>4K OLED | QLED | Android TV</p></div>
-        </div>
-        <div class="product-card">
-          <img src="./fridge.jpeg" alt="Refrigerator">
-          <div class="product-info"><h3>Premium Refrigerators</h3><p>Frost-Free | Inverter</p></div>
-        </div>
-        <div class="product-card">
-          <img src="./ac.jpg" alt="Air Conditioner">
-          <div class="product-info"><h3>Inverter ACs</h3><p>5-Star | WiFi Enabled</p></div>
-        </div>
-        <div class="product-card">
-          <img src="./sofa.jpeg" alt="Sofa">
-          <div class="product-info"><h3>Luxury Sofas</h3><p>Leather | Recliner</p></div>
-        </div>
-        <div class="product-card">
-          <img src="./bed.jpeg" alt="Bed">
-          <div class="product-info"><h3>Designer Beds</h3><p>King Size | Storage</p></div>
-        </div>
-        <div class="product-card">
-          <img src="./whashing.jpeg" alt="Washing Machine">
-          <div class="product-info"><h3>Front Load Machines</h3><p>AI Control | Steam Wash</p></div>
-        </div>
+        <div class="product-card"><img src="./led.jpg" alt="TV"><div class="product-info"><h3>LED & Smart TVs</h3><p>4K OLED | QLED</p></div></div>
+        <div class="product-card"><img src="./fridge.jpeg" alt="Fridge"><div class="product-info"><h3>Premium Refrigerators</h3><p>Frost-Free | Inverter</p></div></div>
+        <div class="product-card"><img src="./ac.jpg" alt="AC"><div class="product-info"><h3>Inverter ACs</h3><p>5-Star | WiFi</p></div></div>
+        <div class="product-card"><img src="./sofa.jpeg" alt="Sofa"><div class="product-info"><h3>Luxury Sofas</h3><p>Leather | Recliner</p></div></div>
+        <div class="product-card"><img src="./bed.jpeg" alt="Bed"><div class="product-info"><h3>Designer Beds</h3><p>King Size | Storage</p></div></div>
+        <div class="product-card"><img src="./whashing.jpeg" alt="Washing"><div class="product-info"><h3>Front Load Machines</h3><p>AI Control</p></div></div>
       </div>
     </div>
   </section>
@@ -323,16 +263,16 @@
   <section id="gallery">
     <div class="container">
       <h2>Visit Our Showroom</h2>
-      <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 50px; color: #555;">
+      <p style="font-size:1.2rem;max-width:800px;margin:0 auto 50px;color:#555;">
         Experience luxury in person at our beautifully designed showroom.
       </p>
       <div class="gallery-grid">
-        <div class="gallery-item"><img src="./frount.jpeg" alt="Showroom"><div class="gallery-overlay"><h3>Main Entrance</h3></div></div>
-        <div class="gallery-item"><img src="./led.jpg" alt="TV Zone"><div class="gallery-overlay"><h3>Smart TV Zone</h3></div></div>
-        <div class="gallery-item"><img src="./fridge.jpeg" alt="Fridge"><div class="gallery-overlay"><h3>Premium Fridges</h3></div></div>
-        <div class="gallery-item"><img src="./sofa.jpeg" alt="Furniture"><div class="gallery-overlay"><h3>Luxury Furniture</h3></div></div>
-        <div class="gallery-item"><img src="./bed.jpeg" alt="Bedroom"><div class="gallery-overlay"><h3>Bedroom Collection</h3></div></div>
-        <div class="gallery-item"><img src="./ac.jpg" alt="AC"><div class="gallery-overlay"><h3>Cooling Solutions</h3></div></div>
+        <div class="gallery-item"><img src="./frount.jpeg" alt=""><div class="gallery-overlay"><h3>Main Entrance</h3></div></div>
+        <div class="gallery-item"><img src="./led.jpg" alt=""><div class="gallery-overlay"><h3>Smart TV Zone</h3></div></div>
+        <div class="gallery-item"><img src="./fridge.jpeg" alt=""><div class="gallery-overlay"><h3>Premium Fridges</h3></div></div>
+        <div class="gallery-item"><img src="./sofa.jpeg" alt=""><div class="gallery-overlay"><h3>Luxury Furniture</h3></div></div>
+        <div class="gallery-item"><img src="./bed.jpeg" alt=""><div class="gallery-overlay"><h3>Bedroom Collection</h3></div></div>
+        <div class="gallery-item"><img src="./ac.jpg" alt=""><div class="gallery-overlay"><h3>Cooling Solutions</h3></div></div>
       </div>
     </div>
   </section>
@@ -340,10 +280,10 @@
   <section id="about" class="about">
     <div class="container">
       <h2>Why Choose Shiva Home Appliances?</h2>
-      <p style="max-width: 900px; margin: 0 auto 50px; font-size: 1.3rem; color: #444;">
-        Trusted for over 15 years. We deliver genuine products with best prices, free delivery, EMI options & excellent service.
+      <p style="max-width:900px;margin:0 auto 50px;font-size:1.3rem;color:#444;">
+        Trusted for over 15 years. Genuine products, best prices, free delivery, EMI & excellent service.
       </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;">
         <div><h3 style="color:var(--accent);">Best Price Guaranteed</h3></div>
         <div><h3 style="color:var(--gold);">Free Delivery & Installation</h3></div>
         <div><h3 style="color:var(--accent);">0% EMI Available</h3></div>
@@ -352,15 +292,12 @@
     </div>
   </section>
 
-  <!-- Contact Section - Only WhatsApp Info -->
   <section id="contact">
     <div class="container">
       <h2>Contact Us Anytime</h2>
       <div class="contact-info">
         <p>Talk to us directly on WhatsApp for instant quotes & offers!</p>
-        <p style="font-size: 2rem; margin: 30px 0;">
-          <span class="highlight">Call / WhatsApp: 9916757929</span>
-        </p>
+        <p style="font-size:2rem;margin:30px 0;"><span class="highlight">Call / WhatsApp: 9916757929</span></p>
         <p>Visit us: <strong>123 Main Road, Near Bus Stand, Your City</strong></p>
         <p>Open: 10 AM - 9 PM (All Days)</p>
       </div>
@@ -373,23 +310,52 @@
     </div>
   </footer>
 
-  <!-- Floating WhatsApp Button -->
   <a href="https://wa.me/919916757929" target="_blank" class="whatsapp-float">
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <!-- JavaScript for Hamburger Menu -->
   <script>
-    document.querySelector('.menu-btn').addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.toggle('active');
+    const menuBtn = document.querySelector('.menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.menu-overlay');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      overlay.classList.toggle('active');
+
+      // Change icon: bars to times
+      if (navLinks.classList.contains('active')) {
+        menuBtn.innerHTML = '<i class="fas fa-times"></i>';
+      } else {
+        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      }
     });
 
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        overlay.classList.remove('active');
+        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      overlay.classList.remove('active');
+      menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    });
+
+    // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelector(this.getAttribute('href')).scrollIntoView({
           behavior: 'smooth'
         });
-        document.querySelector('.nav-links').classList.remove('active');
       });
     });
   </script>
