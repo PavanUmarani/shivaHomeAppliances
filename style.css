@@ -1,0 +1,23 @@
+/* blue theme */
+body { margin:0; font-family:Arial;background:#f4f8ff; }
+.header {display:flex;justify-content:space-between;align-items:center;padding:15px;background:#003f8f;color:#fff;}
+.logo {width:70px;}
+.nav a {color:#fff;margin:0 10px;text-decoration:none;font-weight:bold;}
+
+.hero {background:#002c63;color:#fff;text-align:center;padding:60px 20px;font-size:30px;}
+.slide {display:none;}
+
+.categories,.gallery,.testimonials,.contact {padding:40px;text-align:center;}
+.cat-container {display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
+.cat-box {background:#fff;border-radius:10px;box-shadow:0 0 10px #ccc;padding:15px;width:250px;}
+
+.gallery-container img{width:250px;height:180px;border-radius:8px;}
+
+.test-box{background:white;padding:20px;margin:10px;box-shadow:0px 0px 5px #ccc;}
+
+.form input,.form textarea {width:100%;padding:10px;margin:8px;border-radius:6px;border:1px solid #aaa;}
+
+.footer{background:#003f8f;color:#fff;padding:20px;text-align:center;}
+.footer iframe{width:90%;height:250px;border-radius:10px;}
+
+.whatsapp{position:fixed;right:20px;bottom:20px;background:#25d366;padding:15px;border-radius:50%;font-size:25px;color:white;text-decoration:none;}
